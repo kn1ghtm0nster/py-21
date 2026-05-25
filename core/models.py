@@ -1,7 +1,7 @@
 from typing import List, Dict, Any
 from abc import ABC, abstractmethod
 
-from core import DeckAPIClient
+from .api_client import DeckAPIClient
 
 
 class Card:
@@ -110,3 +110,10 @@ class BlackJackRule(Rule):
             return "Dealer wins! Play again? (Y/N)"
         else:
             return "It's a tie! Play again? (Y/N)"
+
+    def dealer_attempts_win(self) -> None:
+        dealer_score = self.dealer_hand.calculate_score()
+
+        while dealer_score < 17:
+            self.dealer_hand.draw_card()
+            dealer_score = self.dealer_hand.calculate_score()
