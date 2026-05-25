@@ -13,7 +13,34 @@ class Card:
         return self.image
 
 class Hand:
-    pass
+
+    def __init__(self, cards: List[Card] = []):
+        self.cards = cards
+        self.deck = Deck()
+
+    def calculate_score(self) -> int:
+        score = 0
+        ace_count = 0
+
+        for card in self.cards:
+            if card.rank in ['JACK', 'QUEEN', 'KING', 'J', 'Q', 'K']:
+                score += 10
+            elif card.rank == 'ACE':
+                score += 11
+                ace_count += 1
+            else:
+                score += int(card.rank)
+
+        # Adjust for Aces if score is over 21
+        while score > 21 and ace_count > 0:
+            score -= 10
+            ace_count -= 1
+
+        return score
+
+    def draw_card(self, count: int = 1) -> None:
+        new_cards = self.deck.draw_card(count)
+        self.cards.extend(new_cards)
 
 class Deck:
 
