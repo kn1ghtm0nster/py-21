@@ -1,6 +1,8 @@
 from typing import List, Dict, Any
+from abc import ABC, abstractmethod
 
 from core import DeckAPIClient
+
 
 class Card:
 
@@ -12,35 +14,6 @@ class Card:
     def display_image(self) -> str:
         return self.image
 
-class Hand:
-
-    def __init__(self, cards: List[Card] = []):
-        self.cards = cards
-        self.deck = Deck()
-
-    def calculate_score(self) -> int:
-        score = 0
-        ace_count = 0
-
-        for card in self.cards:
-            if card.rank in ['JACK', 'QUEEN', 'KING', 'J', 'Q', 'K']:
-                score += 10
-            elif card.rank == 'ACE':
-                score += 11
-                ace_count += 1
-            else:
-                score += int(card.rank)
-
-        # Adjust for Aces if score is over 21
-        while score > 21 and ace_count > 0:
-            score -= 10
-            ace_count -= 1
-
-        return score
-
-    def draw_card(self, count: int = 1) -> None:
-        new_cards = self.deck.draw_card(count)
-        self.cards.extend(new_cards)
 
 class Deck:
 
@@ -77,5 +50,63 @@ class Deck:
         else:
             raise ValueError("Deck ID is not set. Please get a new deck first.")
 
-class Rule:
-    pass
+
+class Hand:
+
+    def __init__(self, deck: Deck, cards: List[Card] | None = None):
+        self.cards = cards or []
+        self.deck = deck
+
+    def calculate_score(self) -> int:
+        score = 0
+        ace_count = 0
+
+        for card in self.cards:
+            if card.rank in ['JACK', 'QUEEN', 'KING', 'J', 'Q', 'K']:
+                score += 10
+            elif card.rank == 'ACE':
+                score += 11
+                ace_count += 1
+            else:
+                score += int(card.rank)
+
+        # Adjust for Aces if score is over 21
+        while score > 21 and ace_count > 0:
+            score -= 10
+            ace_count -= 1
+
+        return score
+
+    def draw_card(self, count: int = 1) -> None:
+        new_cards = self.deck.draw_card(count)
+        self.cards.extend(new_cards)
+
+
+class Rule(ABC):
+
+    @abstractmethod
+    def determine_winner(self) -> str:
+        raise NotImplementedError("Subclasses must implement this method")
+
+
+class BlackJackRule(Rule):
+
+    def __init__(self):
+        self.deck = Deck()
+        self.player_hand = Hand(deck=self.deck)
+        self.dealer_hand = Hand(deck=self.deck)
+
+    def determine_winner(self) -> str:
+        player_score = self.player_hand.calculate_score()
+        dealer_score = self.dealer_hand.calculate_score()
+
+        if player_score > 21:
+            return "Dealer wins! Play again? (Y/N)"
+        elif dealer_score > 21:
+            return "Player wins! Play again? (Y/N)"
+        elif player_score > dealer_score:
+            return "Player wins! Play again? (Y/N)"
+        elif dealer_score > player_score:
+            return "Dealer wins! Play again? (Y/N)"
+        else:
+            return "It's a tie! Play again? (Y/N)"

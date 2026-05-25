@@ -1,7 +1,9 @@
 from .models import (
     Card,
     Hand,
-    Deck
+    Deck,
+    Rule,
+    BlackJackRule
 )
 
 from .api_client import DeckAPIClient
