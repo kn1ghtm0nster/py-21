@@ -2,6 +2,7 @@ from typing import List, Dict, Any
 from abc import ABC, abstractmethod
 
 from .api_client import DeckAPIClient
+from utils import BlackJackWinner
 
 
 class Card:
@@ -91,8 +92,8 @@ class Rule(ABC):
 
 class BlackJackRule(Rule):
 
-    def __init__(self):
-        self.deck = Deck()
+    def __init__(self, deck: Deck):
+        self.deck = deck
         self.player_hand = Hand(deck=self.deck)
         self.dealer_hand = Hand(deck=self.deck)
 
@@ -101,15 +102,15 @@ class BlackJackRule(Rule):
         dealer_score = self.dealer_hand.calculate_score()
 
         if player_score > 21:
-            return "Dealer wins! Play again? (Y/N)"
+            return BlackJackWinner.DEALER.value
         elif dealer_score > 21:
-            return "Player wins! Play again? (Y/N)"
+            return BlackJackWinner.PLAYER.value
         elif player_score > dealer_score:
-            return "Player wins! Play again? (Y/N)"
+            return BlackJackWinner.PLAYER.value
         elif dealer_score > player_score:
-            return "Dealer wins! Play again? (Y/N)"
+            return BlackJackWinner.DEALER.value
         else:
-            return "It's a tie! Play again? (Y/N)"
+            return BlackJackWinner.TIE.value
 
     def dealer_attempts_win(self) -> None:
         dealer_score = self.dealer_hand.calculate_score()

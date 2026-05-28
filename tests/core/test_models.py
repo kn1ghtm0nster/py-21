@@ -13,6 +13,10 @@ def mock_api():
     return DeckAPIClient()
 
 @pytest.fixture
+def mock_deck():
+    return Deck()
+
+@pytest.fixture
 def mock_new_deck_response():
     return {
         "success": True,
@@ -179,16 +183,16 @@ class TestHand:
 
 class TestBlackJackRule:
 
-    def test_blackjack_rule_initialization(self):
-        rule = BlackJackRule()
+    def test_blackjack_rule_initialization(self, mock_deck):
+        rule = BlackJackRule(deck=mock_deck)
 
         assert isinstance(rule, BlackJackRule)
         assert isinstance(rule.deck, Deck)
         assert isinstance(rule.player_hand, Hand)
         assert isinstance(rule.dealer_hand, Hand)
 
-    def test_determine_winner(self):
-        rule = BlackJackRule()
+    def test_determine_winner(self, mock_deck):
+        rule = BlackJackRule(deck=mock_deck)
 
         rule.player_hand.cards = [
             Card(suit="HEARTS", rank="10", image="https://deckofcardsapi.com/static/img/0H.png"),
@@ -202,8 +206,8 @@ class TestBlackJackRule:
         result = rule.determine_winner()
         assert result == "Player wins! Play again? (Y/N)"
 
-    def test_determine_winner_tie(self):
-        rule = BlackJackRule()
+    def test_determine_winner_tie(self, mock_deck):
+        rule = BlackJackRule(deck=mock_deck)
 
         rule.player_hand.cards = [
             Card(suit="HEARTS", rank="10", image="https://deckofcardsapi.com/static/img/0H.png"),
@@ -217,8 +221,8 @@ class TestBlackJackRule:
         result = rule.determine_winner()
         assert result == "It's a tie! Play again? (Y/N)"
 
-    def test_determine_winner_dealer_wins(self):
-        rule = BlackJackRule()
+    def test_determine_winner_dealer_wins(self, mock_deck):
+        rule = BlackJackRule(deck=mock_deck)
 
         rule.player_hand.cards = [
             Card(suit="HEARTS", rank="10", image="https://deckofcardsapi.com/static/img/0H.png"),
@@ -232,8 +236,8 @@ class TestBlackJackRule:
         result = rule.determine_winner()
         assert result == "Dealer wins! Play again? (Y/N)"
 
-    def test_determine_winner_player_busts(self):
-        rule = BlackJackRule()
+    def test_determine_winner_player_busts(self, mock_deck):
+        rule = BlackJackRule(deck=mock_deck)
 
         rule.player_hand.cards = [
             Card(suit="HEARTS", rank="10", image="https://deckofcardsapi.com/static/img/0H.png"),
@@ -248,8 +252,8 @@ class TestBlackJackRule:
         result = rule.determine_winner()
         assert result == "Dealer wins! Play again? (Y/N)"
 
-    def test_determine_winner_dealer_busts(self):
-        rule = BlackJackRule()
+    def test_determine_winner_dealer_busts(self, mock_deck):
+        rule = BlackJackRule(deck=mock_deck)
 
         rule.player_hand.cards = [
             Card(suit="HEARTS", rank="10", image="https://deckofcardsapi.com/static/img/0H.png"),
@@ -264,8 +268,8 @@ class TestBlackJackRule:
         result = rule.determine_winner()
         assert result == "Player wins! Play again? (Y/N)"
 
-    def test_dealer_attempts_win(self):
-        rule = BlackJackRule()
+    def test_dealer_attempts_win(self, mock_deck):
+        rule = BlackJackRule(deck=mock_deck)
         # NOTE: I'm letting the get_new_deck method here make an actual API call to set the deck_id, 
         # since the dealer_attempts_win method relies on the draw_card method which also makes an API 
         # call. Mocking both methods would be more complex.
