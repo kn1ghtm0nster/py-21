@@ -6,7 +6,9 @@ from core import (
 from games import BlackJackGame
 from utils import (
     get_player_action,
-    PlayerAction
+    PlayerAction,
+    print_welcome,
+    print_message,
 )
 from display import render_card
 
@@ -33,54 +35,54 @@ def display_hand(cards:List[Card], title: str) -> None:
 
 
 def main():
-    print("Welcome to Blackjack!")
-    print("Fetching a new deck of cards please wait...")
+    print_welcome()
+    print_message("Fetching a new deck of cards please wait...", style="bold cyan")
 
     play = True
     while play:
         game = BlackJackGame()
         game.start_game()
 
-        print("\n--- Game Started ---")
+        print_message("\n--- Game Started ---", style="bold green")
 
         # player's turn
         while not game.player_stands:
             display_hand(game.player_hand.cards, "Your Hand:")
             player_score = game.player_hand.calculate_score()
-            print(f"Your current score: {player_score}")
+            print_message(f"Your current score: {player_score}", style="bold yellow")
 
             action = get_player_action()
             match action:
                 case PlayerAction.HIT.value:
                     game.player_hit()
                     if game.player_hand.calculate_score() > 21:
-                        print("\n🎯 BUST! Better luck next time!")
+                        print_message("\n🎯 BUST! Better luck next time!", style="bold red")
                         break
                 case PlayerAction.STAND.value:
                     game.player_stands = True
                 case PlayerAction.DOUBLE.value:
                     game.player_doubles_down()
                     if game.player_hand.calculate_score() > 21:
-                        print("\n🎯 BUST! Better luck next time!")
+                        print_message("\n🎯 BUST! Better luck next time!", style="bold red")
                         break
 
         player_score = game.player_hand.calculate_score()
         # it is now the dealer's turn IF the player hasn't already busted
         if player_score <= 21:
-            print("\n--- Dealer's Turn ---")
+            print_message("\n--- Dealer's Turn ---", style="bold cyan")
             game.rule.dealer_attempts_win()
             display_hand(game.dealer_hand.cards, "Dealer's Hand:")
-            print(f"Dealer's score: {game.dealer_hand.calculate_score()}")
+            print_message(f"Dealer's score: {game.dealer_hand.calculate_score()}", style="bold yellow")
 
         # now we determine the winner
         winner = game.rule.determine_winner()
-        print(f"\n🏆 Winner: {winner} 🏆")
+        print_message(f"\n🏆 Winner: {winner} 🏆", style="bold magenta")
 
         again = input("\nPlay again? (Y/N): ").strip().upper()
         play = again == "Y"
 
     # user decides to quit
-    print("\nThanks for playing! Goodbye!")
+    print_message("\nThanks for playing! Goodbye!", style="bold cyan")
 
 if __name__ == "__main__":
     main()
