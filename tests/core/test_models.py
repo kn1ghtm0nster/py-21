@@ -204,7 +204,7 @@ class TestBlackJackRule:
         ]
 
         result = rule.determine_winner()
-        assert result == "Player wins! Play again? (Y/N)"
+        assert result == "Player wins!"
 
     def test_determine_winner_tie(self, mock_deck):
         rule = BlackJackRule(deck=mock_deck)
@@ -219,7 +219,7 @@ class TestBlackJackRule:
         ]
 
         result = rule.determine_winner()
-        assert result == "It's a tie! Play again? (Y/N)"
+        assert result == "It's a tie!"
 
     def test_determine_winner_dealer_wins(self, mock_deck):
         rule = BlackJackRule(deck=mock_deck)
@@ -234,7 +234,7 @@ class TestBlackJackRule:
         ]
 
         result = rule.determine_winner()
-        assert result == "Dealer wins! Play again? (Y/N)"
+        assert result == "Dealer wins!"
 
     def test_determine_winner_player_busts(self, mock_deck):
         rule = BlackJackRule(deck=mock_deck)
@@ -250,7 +250,7 @@ class TestBlackJackRule:
         ]
 
         result = rule.determine_winner()
-        assert result == "Dealer wins! Play again? (Y/N)"
+        assert result == "Dealer wins!"
 
     def test_determine_winner_dealer_busts(self, mock_deck):
         rule = BlackJackRule(deck=mock_deck)
@@ -266,7 +266,7 @@ class TestBlackJackRule:
         ]
 
         result = rule.determine_winner()
-        assert result == "Player wins! Play again? (Y/N)"
+        assert result == "Player wins!"
 
     def test_dealer_attempts_win(self, mock_deck):
         rule = BlackJackRule(deck=mock_deck)
