@@ -8,13 +8,28 @@ from utils import (
     get_player_action,
     PlayerAction
 )
+from display import render_card
+
+def display_cards_horizontal(cards: List[Card]) -> str:
+    """
+    Displays cards horizontally as ASCII art.
+    """
+    
+    card_arts = [render_card(card).strip().split('\n') for card in cards]
+    # Strip each line to remove leading spaces
+    # avoids weird spacing when cards are displayed horizontally
+    card_arts = [[line.strip() for line in card] for card in card_arts]
+    
+    lines = []
+    for line_idx in range(len(card_arts[0])):
+        line = "  ".join(card_arts[i][line_idx] for i in range(len(cards)))
+        lines.append(line)
+    return "\n".join(lines)
 
 def display_hand(cards:List[Card], title: str) -> None:
     """Displays cards in a hand as readable strings."""
-    card_strings = [str(card) for card in cards]
     print(f"\n{title}")
-    for card in card_strings:
-        print(f" - {card}")
+    print(display_cards_horizontal(cards))
 
 
 def main():
