@@ -12,6 +12,9 @@ class Card:
         self.rank = rank
         self.image = image
 
+    def __str__(self):
+        return f"{self.rank} of {self.suit}"
+
     def display_image(self) -> str:
         return self.image
 
