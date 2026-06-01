@@ -6,7 +6,7 @@ This project was written exclusively in Python with as few dependencies as possi
 
 ## Requirements
 
-- Python 3.10+
+- Python 3.11+
 - `pip` (Python package manager)
 
 ## Install Guide
