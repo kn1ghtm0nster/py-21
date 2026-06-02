@@ -39,12 +39,18 @@ Start the game:
 python main.py
 ```
 
+**Game Options**
+
+- `H` to hit
+- `S` to stand
+- `D` to double down
+
 **Game Rules:**
 
 - Get a hand value closer to 21 than the dealer without going over
-- Hit: Take another card
+- Hit: Add another card to your current hand
 - Stand: Keep your current hand
-- Double: Double your bet and take one final card (for MVP, no actual betting)
+- Double: Double your bet and take one final card (in progress)
 - Bust: Go over 21 and lose instantly
 
 ## Project Structure
@@ -86,9 +92,9 @@ This project was meant to be more than just blackjack but for the time being, I 
 
 - Betting system with player balance
 - Additional card games (Poker, War, etc.)
-- Multiplayer support
 - Scoring/leaderboard system
 - Better AI for dealer decisions
+- Multiplayer support
 
 ## Contributing
 
