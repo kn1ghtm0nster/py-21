@@ -4,12 +4,16 @@ For the days when you're bored and want something to do in your terminal to pret
 
 This project was written exclusively in Python with as few dependencies as possible. All you need to do is follow the install guide and you're set!
 
+## Motivation
+
+I love Blackjack in real life and I've wanted to do a terminal-based project so, I figured I would get some small game development experience and gain more knowledge on creating terminal applications in one project!
+
 ## Requirements
 
 - Python 3.11+
 - `pip` (Python package manager)
 
-## Install Guide
+## Quick Start
 
 1. Clone the repository:
 
@@ -31,7 +35,7 @@ source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-## How to Play
+## Usage
 
 Start the game:
 
