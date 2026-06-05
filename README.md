@@ -1,8 +1,6 @@
 # Blackjack in Python!
 
-For the days when you're bored and want something to do in your terminal to pretend you're working.
-
-This project was written exclusively in Python with as few dependencies as possible. All you need to do is follow the install guide and you're set!
+A terminal-based Blackjack game written in Python using the deck of cards API. The deck comes pre-shuffled so all you need to do is simply press a few keys to hit, stand, or double down.
 
 ## Motivation
 
