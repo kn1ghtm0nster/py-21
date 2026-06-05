@@ -6,6 +6,10 @@ A terminal-based Blackjack game written in Python using the deck of cards API. T
 
 I love Blackjack in real life and I've wanted to do a terminal-based project so, I figured I would get some small game development experience and gain more knowledge on creating terminal applications in one project!
 
+## Motivation
+
+I love Blackjack in real life and I've wanted to do a terminal-based project so, I figured I would get some small game development experience and gain more knowledge on creating terminal applications in one project!
+
 ## Requirements
 
 - Python 3.11+
