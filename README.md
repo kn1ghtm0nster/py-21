@@ -2,9 +2,6 @@
 
 A terminal-based Blackjack game written in Python using the deck of cards API. The deck comes pre-shuffled so all you need to do is simply press a few keys to hit, stand, or double down.
 
-## Motivation
-
-I love Blackjack in real life and I've wanted to do a terminal-based project so, I figured I would get some small game development experience and gain more knowledge on creating terminal applications in one project!
 
 ## Motivation
 
